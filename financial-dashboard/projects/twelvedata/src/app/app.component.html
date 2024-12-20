@@ -1,0 +1,81 @@
+<div class="container mt-5">
+  <h5 class="text-center">Financial Data Viewer</h5>
+
+  <!-- Error Alert -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <!-- Stock Quote Section -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h6>Stock Quote ({{ symbol }})</h6>
+    </div>
+    <div class="card-body">
+      <div *ngIf="quote?.symbol; else loadingQuote">
+        <p><strong>Company Name:</strong> {{ quote.name }}</p>
+        <p><strong>Exchange:</strong> {{ quote.exchange }}</p>
+        <p><strong>Current Price:</strong> {{ quote.close }} {{ quote.currency }}</p>
+        <p><strong>Open:</strong> {{ quote.open }}</p>
+        <p><strong>High:</strong> {{ quote.high }}</p>
+        <p><strong>Low:</strong> {{ quote.low }}</p>
+        <p><strong>Volume:</strong> {{ quote.volume }}</p>
+        <p><strong>Change:</strong> {{ quote.change }} ({{ quote.percent_change }}%)</p>
+        <p><strong>52-Week Range:</strong> {{ quote.fifty_two_week.range }}</p>
+        <p><strong>Market Status:</strong> {{ quote.is_market_open ? 'Open' : 'Closed' }}</p>
+      </div>
+      <ng-template #loadingQuote>
+        <p>Loading stock quote...</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Time Series Section -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h6>Time Series Data ({{ symbol }})</h6>
+    </div>
+    <div class="card-body">
+      <div *ngIf="timeSeriesData?.values; else loadingTimeSeries">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Open</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Close</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of timeSeriesData.values">
+              <td>{{ item.datetime }}</td>
+              <td>{{ item.open }}</td>
+              <td>{{ item.high }}</td>
+              <td>{{ item.low }}</td>
+              <td>{{ item.close }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #loadingTimeSeries>
+        <p>Loading time series data...</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Exchange Rate Section -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h6>Exchange Rate (USD/EUR)</h6>
+    </div>
+    <div class="card-body">
+      <div *ngIf="exchangeRate; else loadingExchangeRate">
+        <p><strong>Rate:</strong> {{ exchangeRate.rate }}</p>
+      </div>
+      <ng-template #loadingExchangeRate>
+        <p>Loading exchange rate...</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

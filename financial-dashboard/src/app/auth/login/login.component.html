@@ -1,0 +1,63 @@
+<main>
+    <section class="sign-in-form section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto col-12">
+            <h1 class="hero-title text-center mb-5">Sign In</h1>
+            <div class="row">
+              <div class="col-lg-8 col-11 mx-auto">
+                <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+                  <div class="form-floating mb-4 p-0">
+                    <input
+                      type="text"
+                      id="userName"
+                      formControlName="userName"
+                      class="form-control"
+                      placeholder="User Name"
+                    />
+                    <label for="userName">User Name</label>
+                    <div *ngIf="submitted && f['userName'].invalid" class="text-danger">
+                      <small *ngIf="f['userName'].errors?.['required']">User Name is required</small>
+                      <small *ngIf="f['userName'].errors?.['minlength']">
+                        User Name must be at least 3 characters long
+                      </small>
+                    </div>
+                  </div>
+  
+                  <div class="form-floating p-0">
+                    <input
+                      type="password"
+                      id="password"
+                      formControlName="password"
+                      class="form-control"
+                      placeholder="Password"
+                    />
+                    <label for="password">Password</label>
+                    <div *ngIf="submitted && f['password'].invalid" class="text-danger">
+                      <small *ngIf="f['password'].errors?.['required']">Password is required</small>
+                      <small *ngIf="f['password'].errors?.['minlength']">
+                        Password must be at least 6 characters long
+                      </small>
+                    </div>
+                  </div>
+  
+                  <button
+                    type="submit"
+                    class="btn custom-btn form-control mt-4 mb-3"
+                    [disabled]="signInForm.invalid"
+                  >
+                    Sign in
+                  </button>
+  
+                  <p class="text-center">
+                    Don’t have an account? <a [routerLink]="['/register']">Create One</a>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
